@@ -26,7 +26,7 @@ class MainHook : IXposedHookLoadPackage {
                     val miuiNotificationHeaderViewClass = loadClassOrNull("com.android.systemui.qs.MiuiNotificationHeaderView")
 
                     XposedHelpers.setStaticObjectField(miuiConfigsClass, "sMiproTypeface", miFontTypeface(430))
-                    XposedHelpers.setStaticObjectField(mobileTypeDrawableClass, "sMiproTypeface", miFontTypeface(520))
+                    XposedHelpers.setStaticObjectField(mobileTypeDrawableClass, "sMiproTypeface", miFontTypeface(550))
 
                     miuiNotificationHeaderViewClass?.methodFinder()?.filter { name.startsWith("updateResources") }?.first()?.createAfterHook {
                         it.thisObject.objectHelper().setObject("usingMiPro", true)
@@ -45,7 +45,7 @@ class MainHook : IXposedHookLoadPackage {
                         @Suppress("UNCHECKED_CAST")
                         val paint = it.args[0] as Array<Paint>
                         paint.forEach { p ->
-                            p.typeface = miFontTypeface(520)
+                            p.typeface = miFontTypeface(550)
                         }
                         it.result = null
                     }
